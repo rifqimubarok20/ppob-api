@@ -18,7 +18,7 @@ const upload = require("../middleware/multer");
 
 /**
  * @swagger
- * /registration:
+ * /auth/registration:
  *   post:
  *     description: |
  *       **API Login Public (Tidak perlu Token untuk mengaksesnya)**
@@ -93,7 +93,7 @@ router.post("/auth/registration", registration);
 
 /**
  * @swagger
- * /login:
+ * /auth/login:
  *   post:
  *     description: |
  *       **API Login Public (Tidak perlu Token untuk mengaksesnya)**
@@ -245,7 +245,7 @@ router.get("/profile", authMiddleware, getUserProfile);
 
 /**
  * @swagger
- * /update/profile:
+ * /profile/update:
  *   put:
  *     description: |
  *       **API Update Profile Private (memerlukan Token untuk mengaksesnya)**
@@ -325,7 +325,7 @@ router.put("/profile/update", authMiddleware, updateUserProfile);
 
 /**
  * @swagger
- * /update/image:
+ * /profile/image:
  *   put:
  *     description: |
  *       **API Upload Profile Image Private (memerlukan Token untuk mengaksesnya)**
@@ -346,7 +346,7 @@ router.put("/profile/update", authMiddleware, updateUserProfile);
  *           schema:
  *             type: object
  *             properties:
- *               file:
+ *               profile_image:
  *                 type: string
  *                 format: binary
  *     responses:

@@ -20,7 +20,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:5000/api/auth",
+        url: "ppob-api-production.up.railway.app/api",
       },
     ],
   },

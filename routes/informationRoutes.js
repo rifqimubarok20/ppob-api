@@ -14,7 +14,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 /**
  * @swagger
- * /banner:
+ * /information/banner:
  *   get:
  *     description: |
  *       **API Banner Public (tidak memerlukan Token untuk mengaksesnya)**
@@ -100,7 +100,7 @@ router.get("/information/banner", authMiddleware, getBanners);
 
 /**
  * @swagger
- * /services:
+ * /information/services:
  *   get:
  *     description: |
  *       **API Services Private (memerlukan Token untuk mengaksesnya)**
