@@ -76,16 +76,21 @@ const updateBalanceAfterTransaction = async (amount, email) => {
   }
 };
 
-const getTransactionHistoryByUser = async (email, limit) => {
+const getTransactionHistoryByUser = async (email, limit, offset) => {
   try {
     const query = `
         SELECT * 
         FROM transactions 
         WHERE email = $1 
         ORDER BY created_on DESC
-        ${limit ? "LIMIT $2" : ""}`;
+        ${limit ? "LIMIT $2" : ""}
+        ${offset ? "OFFSET $3" : ""}`;
 
-    const values = limit ? [email, limit] : [email];
+    const values = [email];
+
+    if (limit) values.push(limit);
+    if (offset) values.push(offset);
+
     const result = await pool.query(query, values);
     return result.rows;
   } catch (error) {

@@ -95,6 +95,8 @@ const transaction = async (req, res) => {
   const { email } = req.user;
 
   try {
+    const balance = await getBalanceByUser(email);
+
     const dataTransaction = {
       email: email,
       invoice_number: generateInvoiceNumber(),
@@ -104,6 +106,14 @@ const transaction = async (req, res) => {
       total_amount: amount,
       created_on: new Date(),
     };
+
+    if (balance.balance < amount) {
+      return res.status(400).json({
+        status: 102,
+        message: "Saldo anda tidak mencukupi",
+        data: null,
+      });
+    }
 
     const topup = await createTransaction(email, dataTransaction);
 
@@ -130,10 +140,12 @@ const transaction = async (req, res) => {
 
 const getTransactionHistory = async (req, res) => {
   const { email } = req.user;
-  const { limit } = req.query;
+  const { limit, offset } = req.query;
 
   try {
     let limitValue = parseInt(limit);
+    let offsetValue = parseInt(offset);
+
     if (limit && (isNaN(limitValue) || limitValue <= 0)) {
       return res.status(400).json({
         status: 102,
@@ -142,7 +154,19 @@ const getTransactionHistory = async (req, res) => {
       });
     }
 
-    const transactions = await getTransactionHistoryByUser(email, limitValue);
+    if (offset && (isNaN(offsetValue) || offsetValue < 0)) {
+      return res.status(400).json({
+        status: 103,
+        message: "Parameter offset harus berupa angka non-negatif",
+        data: null,
+      });
+    }
+
+    const transactions = await getTransactionHistoryByUser(
+      email,
+      limitValue,
+      offsetValue
+    );
 
     if (!transactions.length) {
       return res.status(404).json({ message: "Transactions Tidak Ditemukan" });
@@ -160,7 +184,7 @@ const getTransactionHistory = async (req, res) => {
       status: 0,
       message: "Get Transactions Berhasil",
       data: {
-        offset: 0,
+        offset: offsetValue || 0,
         limit: limitValue || formattedTransactions.length,
         records: formattedTransactions,
       },
