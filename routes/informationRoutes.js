@@ -96,7 +96,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  *                   nullable: true
  *                   example: null
  */
-router.get("/banner", authMiddleware, getBanners);
+router.get("/information/banner", authMiddleware, getBanners);
 
 /**
  * @swagger
@@ -191,6 +191,6 @@ router.get("/banner", authMiddleware, getBanners);
  *                   nullable: true
  *                   example: null
  */
-router.get("/services", authMiddleware, getServices);
+router.get("/information/services", authMiddleware, getServices);
 
 module.exports = router;

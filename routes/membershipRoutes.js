@@ -89,7 +89,7 @@ const upload = require("../middleware/multer");
  *                   nullable: true
  *                   example: null
  */
-router.post("/registration", registration);
+router.post("/auth/registration", registration);
 
 /**
  * @swagger
@@ -176,7 +176,7 @@ router.post("/registration", registration);
  *                   nullable: true
  *                   example: null
  */
-router.post("/login", login);
+router.post("/auth/login", login);
 
 /**
  * @swagger
