@@ -18,7 +18,7 @@ const upload = require("../middleware/multer");
 
 /**
  * @swagger
- * /auth/registration:
+ * /registration:
  *   post:
  *     description: |
  *       **API Login Public (Tidak perlu Token untuk mengaksesnya)**
@@ -89,11 +89,11 @@ const upload = require("../middleware/multer");
  *                   nullable: true
  *                   example: null
  */
-router.post("/auth/registration", registration);
+router.post("/registration", registration);
 
 /**
  * @swagger
- * /auth/login:
+ * /login:
  *   post:
  *     description: |
  *       **API Login Public (Tidak perlu Token untuk mengaksesnya)**
@@ -176,7 +176,7 @@ router.post("/auth/registration", registration);
  *                   nullable: true
  *                   example: null
  */
-router.post("/auth/login", login);
+router.post("/login", login);
 
 /**
  * @swagger
